@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+    <report 
+        id="account_bank_reconcilation_report"
+        string="Reconcilation Report"
+        model="bank.acc.rec.statement"
+        name="sg_bank_reconcilation_report.sg_bank_statment_report"
+        report_type="qweb-pdf"
+        />
+        
+        <record id="paperformat_sg_report" model="report.paperformat">
+            <field name="name">Reconciliation Report</field>
+            <field name="default" eval="True"/>
+            <field name="format">A4</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">60</field>
+            <field name="margin_bottom">10</field>
+            <field name="margin_left">25</field>
+            <field name="margin_right">25</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">55</field>
+            <field name="dpi">90</field>
+            <field name="report_ids" 
+            eval="[(4, ref('sg_bank_reconcilation_report.account_bank_reconcilation_report'))]"/>
+        </record>
+
+        <!-- <record id="account_bank_reconcilation_report" model="ir.actions.report.xml">
+            <field name="paperformat_id" ref="sg_bank_reconcilation_report.paperformat_sg_report"/>
+        </record> -->
+</odoo>

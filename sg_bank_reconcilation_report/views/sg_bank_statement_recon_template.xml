@@ -1,0 +1,415 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="sg_bank_statment_report">
+        <t t-call="web.html_container">
+            <t t-call="web.basic_layout">
+            <t t-foreach="docs" t-as="o">
+                <div class="header">
+                    <center>
+                        <table>
+                            <tr>
+                                <th>
+                                    <span style="font-size:17px;color:#202060" t-field="o.company_id.name"/>
+                                </th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span style="font-size:14px;color:#202060" >
+                                    <span t-field="o.company_id.street"/><span t-field="o.company_id.city"/>
+                                    <span t-field="o.company_id.state_id.name"/>
+                                    <span t-field="o.company_id.country_id.name"/>
+                                    <span t-field="o.company_id.zip"/>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th style="color:#802000;text-align:center;">
+                                    <h4><b><span>Reconciliation Report</span></b></h4>
+                                </th>
+                                
+                            </tr>
+                        </table>
+                    </center>
+                    <table width="100%" style="color:#202060;">
+                        <tr>
+                            <th style="font-size:12px">    
+                                <span t-esc="time.strftime('%Y-%m-%d')"/>
+                            </th>
+                            <th>
+                            
+                            </th>
+                            <th style="text-align:right;font-size:12px">
+                                Page <span class="page"/>
+                            </th>
+                        </tr>
+                         <tr>
+                            <th style="font-size:12px">    
+                                <span t-esc="time.strftime('%H:%M:%S %p')"/>
+                            </th>
+                            <th>
+                                
+                            </th>
+                            <th>
+                            </th>
+                        </tr>
+                    </table>
+                    <br/>
+                    <table width="100%" style="color:#202060;font-size:13px;">
+                        <tr style="border-bottom-color:#802000;border-bottom:2px solid #802000">
+                            <th width="10%" >
+                                ID#
+                            </th>
+                            <th width="20%" style="padding-left:40px">
+                                Date
+                            </th>
+                            <th width="30%" >
+                                Memo/Payee
+                            </th>
+                            <th width="20%">
+                                Deposit
+                            </th>
+                            <th width="20%" >
+                                Withdrawal
+                            </th>
+                        </tr>
+                    </table>
+                        <table width="100%" style="margin-top:15px;">
+                            <tr>
+                                <th width="29%" style="font-size:13px;text-align:right">
+                                    Cheque Account: 
+                                </th>
+                                <th width="2%">
+                                </th>
+                                <th width="79%" style="font-size:12px;text-align:left">
+                                    <span t-field="o.account_id.name"/>
+                                </th>
+                            </tr>
+                            <tr>
+                                <th style="font-size:13px;text-align:right">
+                                    Date of Bank Statement: 
+                                </th>
+                                <th>
+                                </th>
+                                <th style="text-align:left;font-size:12px;">
+                                    <span t-field="o.ending_date" t-field-options='{"format": "d/MM/Y"}'/>
+                                </th>
+                            </tr>
+                        </table>
+                </div>
+                <br/>
+                <br/>
+               <div class="page">
+                    <table width="100%">
+                        <t t-set="r_cheque_total" t-value="0"/>
+                        <t t-if="o.credit_move_line_ids">
+                            <tr> <b>Reconciled Cheques </b></tr>
+                            <tr height="20px"> </tr>
+                            <!-- <t t-set="r_cheque_total" t-value="0"/> -->
+                            <tr style="font-size:13px;" t-foreach="o.credit_move_line_ids" t-as="line_cheque">
+                                <t t-if="line_cheque.cleared_bank_account">
+                                    <td width="10%">
+                                        <span t-field="line_cheque.ref"/>
+                                    </td>
+                                    <td width="20%" style="padding-left:15px">
+                                        <span t-field="line_cheque.date" t-field-options='{"format": "d/MM/Y"}'/>
+                                    </td>
+                                    <td width="30%">
+                                        <span t-field="line_cheque.partner_id.name"/>
+                                    </td>
+                                    <td width="20%">
+                                    
+                                    </td>
+                                    <td width="20%">
+                                        <span t-field="o.company_id.currency_id.symbol"/> <span t-field="line_cheque.amount"/>
+                                        <span t-set="r_cheque_total" t-value="r_cheque_total+line_cheque.amount"/>
+                                    </td>
+                                </t>
+                            </tr>
+                            <tr style="border-bottom:2px dotted;font-size:13px;">
+                                <td width="10%">
+                                
+                                </td>
+                                <td width="20%">
+                                
+                                </td>
+                                <th width="30%">
+                                    Total
+                                </th>
+                                <th width="20%" style="padding-bottom:10px;padding-top:10px">
+                                    <span style="text-align:right;border-top:1px solid black;">
+                                        <span t-field="o.company_id.currency_id.symbol"/>0.00
+                                    </span>
+                                </th>
+                                <th width="20%" style="padding-bottom:10px;padding-top:10px">
+                                    <span style="text-align:right;border-top:1px solid black;">
+                                        <span t-field="o.company_id.currency_id.symbol"/><t t-esc="'{0:,.2f}'.format(r_cheque_total)"/>
+                                    </span>
+                                </th>
+                            </tr>
+                        </t>
+                    </table>
+                    <br/>
+                    <!--Reconciled Deposits  -->
+                    <table width="100%">
+                        <t t-set="r_deposit_total" t-value="0"/>
+                        <t t-if="o.debit_move_line_ids">
+                            <tr> <b>Reconciled Deposits </b></tr>
+                            <tr height="20px"> </tr>
+                            <!-- <t t-set="r_deposit_total" t-value="0"/> -->
+                            <tr style="font-size:13px;" t-foreach="o.debit_move_line_ids" t-as="line_deposite">
+                                <t t-if="line_deposite.cleared_bank_account">
+                                    <td width="10%">
+                                        <span t-field="line_deposite.ref"/>
+                                    </td>
+                                    <td width="20%" style="padding-left:15px">
+                                        <span t-field="line_deposite.date" t-field-options='{"format": "d/MM/Y"}'/>
+                                    </td>
+                                    <td width="30%">
+                                        <span t-field="line_deposite.partner_id.name"/>
+                                    </td>
+                                    <td width="20%">
+                                        <span t-field="o.company_id.currency_id.symbol"/><span t-field="line_deposite.amount"/>
+                                        <span t-set="r_deposit_total" t-value="r_deposit_total+line_deposite.amount"/>
+                                    </td>
+                                    <td width="20%">
+                                        
+                                    </td>
+                                </t>
+                            </tr>
+                            <tr style="border-bottom:2px dotted;font-size:13px;">
+                                <td width="10%">
+                                
+                                </td>
+                                <td width="20%">
+                                
+                                </td>
+                                <th width="30%">
+                                    Total
+                                </th>
+                                <td width="20%" style="padding-bottom:10px;padding-top:10px">
+                                <span style="text-align:right;border-top:1px solid black;">
+                                    <b><span t-field="o.company_id.currency_id.symbol"/>
+                                    <t t-esc="'{0:,.2f}'.format(r_deposit_total)" /></b>
+                                </span>
+                                </td>
+                                <th width="20%" style="padding-bottom:10px;padding-top:10px">
+                                    <span style="text-align:right;border-top:1px solid black;">
+                                    <b><span t-field="o.company_id.currency_id.symbol"/>0.00</b>
+                                </span>
+                                </th>
+                            </tr>
+                        </t>
+                    </table>
+                    <br/>
+                    
+                    <!-- Outstanding Cheques -->
+                    <table width="100%">
+                        <t t-set="o_cheque_total" t-value="0"/>
+                        <t t-if="o.credit_move_line_ids">
+                            <tr> <b>Outstanding Cheques </b></tr>
+                            <tr height="20px"> </tr>
+                            <!-- <t t-set="o_cheque_total" t-value="0"/> -->
+                            <tr style="font-size:13px;" t-foreach="o.credit_move_line_ids" t-as="o_line_cheque">
+                                <t t-if="not o_line_cheque.cleared_bank_account">
+                                    <td width="10%">
+                                        <span t-field="o_line_cheque.ref"/>
+                                    </td>
+                                    <td width="20%" style="padding-left:15px">
+                                        <span t-field="o_line_cheque.date" t-field-options='{"format": "d/MM/Y"}'/>
+                                    </td>
+                                    <td width="30%">
+                                        <span t-field="o_line_cheque.partner_id.name"/>
+                                    </td>
+                                    <td width="20%">
+                                    
+                                    </td>
+                                    <td width="20%" >
+                                        <span t-field="o.company_id.currency_id.symbol"/><span t-field="o_line_cheque.amount"/>
+                                        <span t-set="o_cheque_total" t-value="o_cheque_total+o_line_cheque.amount"/>
+                                    </td>
+                                </t>
+                            </tr>
+                            <tr style="font-size:13px;border-bottom:2px dotted;">
+                                <td width="10%">
+                                
+                                </td>
+                                <td width="20%">
+                                
+                                </td>
+                                <th width="30%">
+                                    Total
+                                </th>
+                                <th width="20%" style="padding-bottom:10px;padding-top:10px">
+                                    <span style="text-align:right;border-top:1px solid black;">
+                                        <span t-field="o.company_id.currency_id.symbol"/>
+                                        0.00
+                                   </span>
+                                </th>
+                                <th width="20%" style="padding-bottom:10px;padding-top:10px">
+                                    <span style="text-align:right;border-top:1px solid black;">
+                                        <t t-if ="o_cheque_total">
+                                            <span t-field="o.company_id.currency_id.symbol"/>
+                                            <t t-esc="'{0:,.2f}'.format(o_cheque_total)" />
+                                        </t>
+                                   </span>
+                                 </th>
+                            </tr>
+                        </t>
+                    </table>
+                    <br/>
+                    <!-- Outstanding Deposits -->
+                   <table width="100%">
+                        <t t-set="o_deposit_total" t-value="0"/>
+                        <t t-if="o.debit_move_line_ids">
+                            <tr> <b>Outstanding Deposits </b></tr>
+                            <tr height="20px"> </tr>
+                            <!-- <t t-set="o_deposit_total" t-value="0"/> -->
+                            <tr style="font-size:13px;" t-foreach="o.debit_move_line_ids" t-as="o_line_deposite">
+                                <t t-if="not o_line_deposite.cleared_bank_account">
+                                    <td width="10%">
+                                        <span t-field="o_line_deposite.ref"/>
+                                    </td>
+                                    <td width="20%" style="padding-left:15px">
+                                        <span t-field="o_line_deposite.date" t-field-options='{"format": "d/MM/Y"}'/>
+                                    </td>
+                                    <td width="30%">
+                                        <span t-field="o_line_deposite.partner_id.name"/>
+                                    </td>
+                                    <td width="20%">
+                                        <span t-field="o.company_id.currency_id.symbol"/><span t-field="o_line_deposite.amount"/>
+                                        <span t-set="o_deposit_total" t-value="o_deposit_total+o_line_deposite.amount"/>
+                                    </td>
+                                    <td width="20%">
+                                        
+                                    </td>
+                                </t>
+                            </tr>
+                            <tr style="border-bottom:2px dotted;font-size:13px;">
+                                <td width="10%">
+                                
+                                </td>
+                                <td width="20%">
+                                
+                                </td>
+                                <th width="30%" >
+                                    Total
+                                </th>
+                                <th width="20%" style="padding-bottom:10px;padding-top:10px">
+                                    <span style="text-align:right;border-top:1px solid black;">
+                                        <b><span t-field="o.company_id.currency_id.symbol"/><t t-esc="'{0:,.2f}'.format(o_deposit_total)" /></b>
+                                    </span>
+                                </th>
+                                <th width="20%" style="padding-bottom:10px;padding-top:10px">
+                                    <span style="text-align:right;border-top:1px solid black;">
+                                        <b><span t-field="o.company_id.currency_id.symbol"/>
+                                        0.00</b>
+                                    </span>
+                                </th>
+                            </tr>
+                        </t>
+                    </table>
+                    <br/>
+                    
+                    <span>Reconciliation</span>
+                    <center>
+                        <table width="100%" class="col-md-12" style="font-size:13px;">
+                            <tr height="25px">    
+                                <td width="49%"  style="text-align:right;">
+                                    Balance on <span t-field="o.ending_date" t-field-options='{"format": "d/MM/Y"}'/>:
+                                </td>
+                                <td width="2%">
+                                
+                                </td>
+                                <td width="49%" style="text-align:left">
+                                    <span t-field="o.company_id.currency_id.symbol"/>
+                                    <span t-esc="'{0:,.2f}'.format(get_blc(o.account_id, o.ending_date ))" />
+                                    
+                                </td>
+                            </tr>
+                            <tr height="25px">    
+                                <td width="49%" style="text-align:right">
+                                    Add: Outstanding Cheques:
+                                </td>
+                                <td width="2%">
+                                </td>
+                                <td width="49%" style="text-align:left;padding-bottom:10px;padding-top:10px;">
+                                    <t t-if = "o_cheque_total">
+                                        <span t-field="o.company_id.currency_id.symbol"/>
+                                        <t t-esc="'{0:,.2f}'.format(o_cheque_total) " />
+                                    </t>
+                                    <t t-if = "not o_cheque_total">
+                                        <span t-field="o.company_id.currency_id.symbol"/>
+                                        0.00
+                                    </t>
+                                </td>
+                            </tr>
+                            <tr height="25px">    
+                                <td width="49%" style="text-align:right">
+                                    Subtotal:
+                                </td>
+                                <td width="2%">
+                                
+                                </td>
+                                <td width="49%" style="text-align:left;">
+                                    <t t-if="o_cheque_total">
+                                        <span style="padding-bottom:10px;padding-top:10px;text-align:right;border-top:1px solid black;">
+                                            <span t-field="o.company_id.currency_id.symbol"/>
+                                            <span t-esc="'{0:,.2f}'.format(o.starting_balance + o_cheque_total)" />
+                                        </span>
+                                    </t>
+                                    <t t-if="not o_cheque_total">
+                                        <span style="padding-bottom:10px;padding-top:10px;text-align:right;border-top:1px solid black;">
+                                            <span t-field="o.company_id.currency_id.symbol"/>
+                                            0.00
+                                        </span>
+                                    </t>
+                                </td>
+                            </tr>
+                            <tr height="25px">    
+                                <td width="49%" style="text-align:right">
+                                    Deduct: Outstanding Deposits:
+                                </td>
+                                <td width="2%">
+                                
+                                </td>
+                                <td width="49%" style="text-align:left">
+                                    <t t-if ="o_deposit_total">
+                                        <span t-field="o.company_id.currency_id.symbol"/>
+                                        <t t-esc="'{0:,.2f}'.format(o_deposit_total)" />
+                                     </t>
+                                     <t t-if ="not o_deposit_total">
+                                        <span t-field="o.company_id.currency_id.symbol"/>
+                                        0.00
+                                     </t>
+                                </td>
+                            </tr>
+                            <tr height="25px">    
+                                <td width="49%" style="text-align:right">
+                                    Expected Balance on Statement:
+                                </td>
+                                <td width="2%">
+                                </td>
+                                
+                                <td width="49%" style="text-align:left;padding-bottom:10px;padding-top:10px;">
+                                    <t t-if="o_cheque_total"> 
+                                        <span style="text-align:right;border-top:1px solid black;text-align:right;border-bottom:1px solid black;">
+                                            <span t-field="o.company_id.currency_id.symbol"/>
+                                            <t t-esc="'{0:,.2f}'.format((o.starting_balance + o_cheque_total) - o_deposit_total)"/>
+                                        </span>
+                                    </t>
+                                    <t t-if="not o_cheque_total"> 
+                                        <span style="padding-bottom:10px;padding-top:10px;text-align:right;border-top:1px solid black;text-align:right;border-bottom:1px solid black;">
+                                            <span t-field="o.company_id.currency_id.symbol"/>
+                                            0.00
+                                        </span>
+                                    </t>
+                                </td>
+                            </tr>
+                        </table>
+                    </center>
+               </div>
+            </t>
+            </t>
+         </t>
+    </template>
+</odoo>
