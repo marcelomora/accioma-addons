@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record model="ir.ui.view" id="bo_product_template_form_view">
+        <field name="name">product.template</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <field name="product_variant_id" position="after">
+                <field name="check_update_history_price_card" groups="stock.group_stock_manager"/>
+            </field>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="bo_product_template_form_view_procurement_button">
+        <field name="name">product.template</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="stock.product_template_form_view_procurement_button"/>
+        <field name="arch" type="xml">
+            <data>
+                <button name="action_view_stock_move_lines" position="after">
+                    <button string="Update history price" type="object" name="update_history_price_locations" class="oe_stat_button" icon="fa-sort-numeric-desc" groups="stock.group_stock_manager" attrs="{'invisible':['|', ('type', '!=', 'product'), ('check_update_history_price_card', '=', True)]}"/>
+                </button>
+            </data>
+        </field>
+    </record>
+</odoo>

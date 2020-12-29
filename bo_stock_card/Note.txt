@@ -1,0 +1,11 @@
+Pendientes:
+ - Realizar otro reporte como el que me enviaron en el correo de zoho
+ - Añadir los tres tipos de fechas en el reporte (date, set_date, datetime)
+ - Añadir en el reporte el origen de los documentos (El correlatio de la factura, del picking, y la guia(Campo origin))
+ - Validar en ingreso de campo set_date del move line
+ - En el reporte ordenar segun la ubicación
+ - Probar y validar con las series y lotes
+ - Migrar el reporte de simple kardex de la version 10.0 a la 11.0
+ - Optimizar ml_data el agrupador
+ - Considerar los movimientos que esten en estado borrador
+ - 

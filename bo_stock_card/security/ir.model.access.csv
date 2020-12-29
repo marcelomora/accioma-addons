@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_bo_card,bo.card,model_bo_card,stock.group_stock_manager,1,1,1,1
+access_bo_card_line,bo.card.line,model_bo_card_line,stock.group_stock_manager,1,1,1,1
+access_history_card,product.price.history.card,model_product_price_history_card,stock.group_stock_manager,1,1,1,1
+access_bo_stock_quant,stock.quant,model_stock_quant,stock.group_stock_manager,1,1,1,1

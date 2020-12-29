@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record forcecreate="True" id="decimal_payment" model="decimal.precision">
+            <field name="name">Product Price History Card</field>
+            <field name="digits">15</field>
+        </record>
+        <record id="bo_stock_card.tax_included" model="ir.config_parameter">
+            <field name="key">bo_stock_card.tax_included</field>
+            <field name="value">False</field>
+        </record>
+    </data>
+</odoo>

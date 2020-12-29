@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="report_stock_card" model="ir.ui.view">
+        <field name="name">bo.stock.card.wizard.form</field>
+        <field name="model">bo.stock.card.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Reporte stock card">
+                <group name="search_criteria">
+                    <group>
+                        <field name="name" placeholder="Name of the period listed in the report"/>
+                        <field name="date_from"/>
+                        <field name="date_to"/>
+                        <field name="print_family"/>
+                        <field name="out_file_name"/>
+                        <field name="out_file"/>
+                    </group>
+                    <group>
+                        <field name="print_sale_purchase_ref"/>
+                        <field name="company_id" options="{'no_create': True}" groups="base.group_multi_company"/>
+                        <field name="warehouse_ids" options="{'no_create': True}" widget="many2many_tags"/>
+                        <field name="location_ids" options="{'no_create': True}" domain="[('usage', '=', 'internal')]" widget="many2many_tags" attrs="{'required': [('warehouse_ids', '!=', [])]}"/>
+                        <field name="product_ids" options="{'no_create': True}" domain="[('type', '=', 'product')]" widget="many2many_tags"/>
+                        <field name="categ_ids" options="{'no_create': True}" widget="many2many_tags"/>
+                        <field name="moves"/>
+                    </group>
+                </group>
+                <group string="Download file" attrs="{'invisible': [('out_file_name', '=', False)]}">
+                    <field name="out_file" filename="out_file_name" readonly="1" nolabel="1" colspan="4"/>
+                    <field name="out_file_name" invisible="1"/>
+                </group>
+                <p class="oe_grey">
+                    * Filter only products actives
+                </p>
+                <p class="oe_grey">
+                    * If you do not define the start date and the end date it will take from the creation of the product until today
+                </p>
+                <footer>
+                    <button title="Update card" name="action_card_update" type="object" icon="fa-refresh" default_focus="1" class="oe_highlight"/>
+                    <button string="Print report" name="generate_report" type="object" class="oe_highlight"/>
+                    <button string="Inventory valuation" name="generate_report_inventory_valuation" type="object"/>
+                    <button string="Simple card" name="generate_report_simple_card" type="object"/>
+                    <button string="Simple card 2" name="generate_report_simple_card_2" type="object"/>
+                    <button string="Liquidation" name="generate_report_liquidation" type="object"/>
+                    <button string="Cancel" class="oe_link" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_report_stock_card" model="ir.actions.act_window">
+        <field name="name">Report stock card</field>
+        <field name="res_model">bo.stock.card.wizard</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem
+        id="bo_stock_card_menu"
+        parent="stock.menu_warehouse_report"
+        action="action_report_stock_card"
+        sequence="0"
+        groups="stock.group_stock_manager"
+    />
+
+    <record model='ir.ui.view' id='bo_card_line_tree'>
+        <field name='name'>bo.card.line.tree</field>
+        <field name='model'>bo.card.line</field>
+        <field name='arch' type='xml'>
+            <tree string='Card line' decoration-info="set_date != False" decoration-danger="location_id==location_dest_id">
+                <field name='date'/>
+                <field name='set_date'/>
+                <field name='datetime'/>
+                <field name='reference'/>
+                <field name='location_id'/>
+                <!-- <field name='standard_price'/> --> <!-- Field tmp -->
+                <field name='location_dest_id'/>
+                <field name='in_quantity'/>
+                <field name='in_cost'/>
+                <field name='in_cost_total'/>
+                <field name='out_quantity'/>
+                <field name='out_cost'/>
+                <field name='out_cost_total'/>
+                <field name='end_quantity'/>
+                <field name='end_cost'/>
+                <field name='end_cost_total'/>
+            </tree>
+        </field>
+    </record>
+    <record id="action_bo_card_line" model="ir.actions.act_window">
+        <field name="name">Card line</field>
+        <field name="res_model">bo.card.line</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

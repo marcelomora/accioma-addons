@@ -1,0 +1,561 @@
+#. module: bo_stock_card
+#: model:ir.model.fields,field_description:bo_stock_card.field_product_template_check_update_history_price_card
+msgid "Check update history price"
+msgstr "Verifica actualización histórica del precio estandar"
+
+#. module: bo_stock_card
+#: model:ir.ui.view,arch_db:bo_stock_card.bo_product_template_form_view_procurement_button
+msgid "Update history price"
+msgstr "Act. hist. precio"
+
+#. module: bo_stock_card
+#: model:ir.ui.view,arch_db:bo_stock_card.bo_view_stock_quant_form
+#: model:ir.ui.view,arch_db:bo_stock_card.view_stock_quant_tree
+msgid "Show stock card"
+msgstr "Ver kardex"
+
+#. module: bo_stock_card
+#: model:ir.model.fields,field_description:bo_stock_card.field_bo_card_line_date
+msgid "Date move"
+msgstr "Fecha de movimiento"
+
+#. module: bo_stock_card
+#: model:ir.model.fields,field_description:bo_stock_card.field_bo_card_line_set_date
+msgid "Set date"
+msgstr "Ajuste de fecha"
+
+#. module: bo_stock_card
+#: model:ir.model.fields,field_description:bo_stock_card.field_bo_card_line_datetime
+msgid "Date card"
+msgstr "Fecha kardex"
+
+#. module: bo_stock_card
+#: model:ir.model.fields,field_description:bo_stock_card.field_bo_card_line_reference
+msgid "Reference"
+msgstr "Referencia"
+
+#. module: bo_stock_card
+#: model:ir.model.fields,field_description:bo_stock_card.field_bo_card_line_location_id
+msgid "From"
+msgstr "De"
+
+#. module: bo_stock_card
+#: model:ir.model.fields,field_description:bo_stock_card.field_bo_card_line_location_dest_id
+msgid "To"
+msgstr "Para"
+
+#. module: bo_stock_card
+#: model:ir.model.fields,field_description:bo_stock_card.field_bo_card_line_standard_price
+msgid "Standard price"
+msgstr "Precio standard"
+
+#. module: bo_stock_card
+#: model:ir.model.fields,field_description:bo_stock_card.field_bo_card_line_in_quantity
+msgid "In quantity"
+msgstr "Entrada cantidad"
+
+#. module: bo_stock_card
+#: model:ir.model.fields,field_description:bo_stock_card.field_bo_card_line_in_cost
+msgid "In cost"
+msgstr "Entrada costo unitario"
+
+#. module: bo_stock_card
+#: model:ir.model.fields,field_description:bo_stock_card.field_bo_card_line_in_cost_total
+msgid "In cost"
+msgstr "Entrada costo total"
+
+#. module: bo_stock_card
+#: model:ir.model.fields,field_description:bo_stock_card.field_bo_card_line_out_quantity
+msgid "In quantity"
+msgstr "Salida cantidad"
+
+#. module: bo_stock_card
+#: model:ir.model.fields,field_description:bo_stock_card.field_bo_card_line_out_cost
+msgid "In cost"
+msgstr "Salida costo unitario"
+
+#. module: bo_stock_card
+#: model:ir.model.fields,field_description:bo_stock_card.field_bo_card_line_out_cost_total
+msgid "In cost"
+msgstr "Salida costo total"
+
+#. module: bo_stock_card
+#: model:ir.model.fields,field_description:bo_stock_card.field_bo_card_line_end_quantity
+msgid "In quantity"
+msgstr "Saldo final cantidad"
+
+#. module: bo_stock_card
+#: model:ir.model.fields,field_description:bo_stock_card.field_bo_card_line_end_cost
+msgid "In cost"
+msgstr "Saldo final costo unitario"
+
+#. module: bo_stock_card
+#: model:ir.model.fields,field_description:bo_stock_card.field_bo_card_line_end_cost_total
+msgid "In cost"
+msgstr "Saldo final costo total"
+
+#. module: bo_stock_card
+#: model:ir.model.fields,field_description:bo_stock_card.field_bo_stock_card_wizard_company_id
+msgid "Company"
+msgstr "Compañia"
+
+#. module: bo_stock_card
+#: model:ir.model.fields,field_description:bo_stock_card.field_bo_stock_card_wizard_print_sale_purchase_ref
+msgid "Add col. sale & purchase ref."
+msgstr "Agregar col. venta y compras"
+
+#. module: bo_stock_card
+#: model:ir.model.fields,field_description:bo_stock_card.field_bo_stock_card_wizard_categ_ids
+msgid "Product category"
+msgstr "Categoria del producto"
+
+#. module: bo_stock_card
+#: model:ir.model.fields,field_description:bo_stock_card.field_bo_stock_card_wizard_name
+msgid "Name period report"
+msgstr "Nombre del periodo"
+
+#. module: bo_stock_card
+#: model:ir.model.fields,field_description:bo_stock_card.field_bo_stock_card_wizard_date_from
+msgid "Start date"
+msgstr "Fecha inicio"
+
+#. module: bo_stock_card
+#: model:ir.model.fields,field_description:bo_stock_card.field_bo_stock_card_wizard_date_to
+msgid "End date"
+msgstr "Fecha fin"
+
+#. module: bo_stock_card
+#: model:ir.model.fields,field_description:bo_stock_card.field_bo_stock_card_wizard_warehouse_ids
+msgid "Warehouse"
+msgstr "Almacén"
+
+#. module: bo_stock_card
+#: model:ir.model.fields,field_description:bo_stock_card.field_bo_stock_card_wizard_location_ids
+msgid "Location"
+msgstr "Ubicación"
+
+#. module: bo_stock_card
+#: model:ir.model.fields,field_description:bo_stock_card.field_bo_stock_card_wizard_product_ids
+msgid "Product"
+msgstr "Producto"
+
+#. module: bo_stock_card
+#: model:ir.model.fields,field_description:bo_stock_card.field_bo_stock_card_wizard_moves
+msgid "Print product if you have moves"
+msgstr "Imprimir producto si tiene movimientos"
+
+#. module: bo_stock_card
+#: model:ir.model.fields,field_description:bo_stock_card.field_bo_stock_card_wizard_print_family
+msgid "Print family (Only apply in Simple card)"
+msgstr "Imprimir familia (Sólo aplica en Kardex simple)"
+
+#. module: bo_stock_card
+#: model:ir.ui.menu,name:bo_stock_card.bo_stock_card_menu
+#: model:ir.actions.act_window,name:bo_stock_card.action_report_stock_card
+msgid "Report stock card"
+msgstr "Reporte stock kardex"
+
+#. module: bo_stock_card
+#: model:ir.model.fields,help:bo_stock_card.field_bo_stock_card_wizard_moves
+msgid "Print the product on the kardex if it has movements"
+msgstr "Imprimir el producto en el kardex si tiene movimientos"
+
+#. module: bo_stock_card
+#: model:ir.model.fields,help:bo_stock_card.field_bo_stock_card_wizard_date_from
+msgid "If you do not consider the start date, take from the beginning of the first movement"
+msgstr "Si no considera la fecha inicio, toma desde el inicio del primer movimiento"
+
+#. module: bo_stock_card
+#: model:ir.model.fields,help:bo_stock_card.field_bo_stock_card_wizard_date_to
+msgid "If you do not consider the end date take until the current date"
+msgstr "Si no considera la fecha fin toma hasta la fecha actual"
+
+#. module: bo_stock_card
+#: model:ir.ui.menu,name:bo_stock_card.bo_stock_card_menu
+#: model:ir.actions.act_window,name:bo_stock_card.action_report_stock_card
+msgid "Report stock card"
+msgstr "Reporte stock kardex"
+
+#. module: bo_stock_card
+#: model:ir.ui.view,arch_db:bo_stock_card.report_stock_card
+msgid "Name of the period listed in the report"
+msgstr "Nombre del período que figurá en el reporte"
+
+#. module: bo_stock_card
+#: model:ir.ui.view,arch_db:bo_stock_card.report_stock_card
+msgid "Download file"
+msgstr "Descargar archivo"
+
+#. module: bo_stock_card
+#: model:ir.ui.view,arch_db:bo_stock_card.report_stock_card
+msgid "* Filter only products actives"
+msgstr "* Solo se considera los productos activos"
+
+#. module: bo_stock_card
+#: model:ir.ui.view,arch_db:bo_stock_card.report_stock_card
+msgid "* If you do not define the start date and the end date it will take from the creation of the product until today"
+msgstr "* Si No define la fecha de inicio y la fecha fin se considera desde la creación del producto hasta la actualidad"
+
+#. module: bo_stock_card
+#: model:ir.ui.view,arch_db:bo_stock_card.report_stock_card
+msgid "Update card"
+msgstr "Actualizar kardex"
+
+#. module: bo_stock_card
+#: model:ir.ui.view,arch_db:bo_stock_card.report_stock_card
+msgid "Liquidation"
+msgstr "liquidación"
+
+#. module: bo_stock_card
+#: model:ir.ui.view,arch_db:bo_stock_card.report_stock_card
+msgid "Print report"
+msgstr "Imprimir reporte"
+
+#. module: bo_stock_card
+#: model:ir.ui.view,arch_db:bo_stock_card.report_stock_card
+msgid "Simple card"
+msgstr "Kardex simple"
+
+#. module: bo_stock_card
+#: model:ir.ui.view,arch_db:bo_stock_card.report_stock_card
+msgid "Simple card 2"
+msgstr "Kardex simple 2"
+
+#. module: bo_stock_card
+#: model:ir.ui.view,arch_db:bo_stock_card.report_stock_card
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: bo_stock_card
+#: code:addons/bo_stock_card/models/card.py:169
+#, python-format
+msgid "Company:"
+msgstr "Compañia:"
+
+#. module: bo_stock_card
+#: code:addons/bo_stock_card/models/card.py:76
+#, python-format
+msgid "Period:"
+msgstr "Período:"
+
+#. module: bo_stock_card
+#: code:addons/bo_stock_card/models/card.py:213
+#, python-format
+msgid "Warehouse:"
+msgstr "Almacén:"
+
+#. module: bo_stock_card
+#: code:addons/bo_stock_card/models/card.py:216
+#, python-format
+msgid "Location:"
+msgstr "Ubicación:"
+
+#. module: bo_stock_card
+#: code:addons/bo_stock_card/models/card.py:219
+#, python-format
+msgid "Product:"
+msgstr "Producto:"
+
+#. module: bo_stock_card
+#: code:addons/bo_stock_card/models/card.py:219
+#, python-format
+msgid "Category:"
+msgstr "Categoria:"
+
+#. module: bo_stock_card
+#: code:addons/bo_stock_card/models/card.py:245
+#, python-format
+msgid "Lot/Serial Number:"
+msgstr "Lote/Número de serie:"
+
+#. module: bo_stock_card
+#: code:addons/bo_stock_card/models/card.py:249
+#, python-format
+msgid "Package:"
+msgstr "Paquete:"
+
+#. module: bo_stock_card
+#: code:addons/bo_stock_card/models/card.py:222
+#, python-format
+msgid "Date from:"
+msgstr "Desde:"
+
+#. module: bo_stock_card
+#: code:addons/bo_stock_card/models/card.py:224
+#, python-format
+msgid "Date to:"
+msgstr "Hasta:"
+
+#. module: bo_stock_card
+#: code:addons/bo_stock_card/models/card.py:224
+#, python-format
+msgid "Date to:"
+msgstr "Hasta:"
+
+#. module: bo_stock_card
+#: code:addons/bo_stock_card/models/card.py:228
+#, python-format
+msgid "Move"
+msgstr "Referencia"
+
+#. module: bo_stock_card
+#: code:addons/bo_stock_card/models/card.py:229
+#, python-format
+msgid "Date"
+msgstr "Fecha"
+
+#. module: bo_stock_card
+#: code:addons/bo_stock_card/models/card.py:230
+#, python-format
+msgid "Location"
+msgstr "Ubicación ori."
+
+#. module: bo_stock_card
+#: code:addons/bo_stock_card/models/card.py:231
+#, python-format
+msgid "Location dest"
+msgstr "Ubicación dest."
+
+#. module: bo_stock_card
+#: code:addons/bo_stock_card/models/card.py:275
+#, python-format
+msgid "Sale"
+msgstr "Pedido"
+
+#. module: bo_stock_card
+#: code:addons/bo_stock_card/models/card.py:276
+#, python-format
+msgid "Purchase"
+msgstr "Compra"
+
+#. module: bo_stock_card
+#: code:addons/bo_stock_card/models/card.py:280
+#, python-format
+msgid "Picking"
+msgstr "Guía"
+
+#. module: bo_stock_card
+#: code:addons/bo_stock_card/models/card.py:232
+#, python-format
+msgid "In quantity"
+msgstr "E. cantidad"
+
+#. module: bo_stock_card
+#: code:addons/bo_stock_card/models/card.py:233
+#, python-format
+msgid "In cost"
+msgstr "E. costo"
+
+#. module: bo_stock_card
+#: code:addons/bo_stock_card/models/card.py:234
+#, python-format
+msgid "In total cost"
+msgstr "E. costo total"
+
+#. module: bo_stock_card
+#: code:addons/bo_stock_card/models/card.py:236
+#, python-format
+msgid "Out quantity"
+msgstr "S. cantidad"
+
+#. module: bo_stock_card
+#: code:addons/bo_stock_card/models/card.py:237
+msgid "Out cost"
+msgstr "S. costo"
+
+#. module: bo_stock_card
+#: code:addons/bo_stock_card/models/card.py:238
+#, python-format
+msgid "Out total cost"
+msgstr "S. costo total"
+
+#. module: bo_stock_card
+#: code:addons/bo_stock_card/models/card.py:240
+#, python-format
+msgid "End quantity"
+msgstr "F. cantidad"
+
+#. module: bo_stock_card
+#: code:addons/bo_stock_card/models/card.py:241
+msgid "End cost"
+msgstr "F. costo"
+
+#. module: bo_stock_card
+#: code:addons/bo_stock_card/models/card.py:242
+#, python-format
+msgid "End total cost"
+msgstr "F. costo total"
+
+#. module: bo_stock_card
+#: code:addons/bo_stock_card/models/simple_card.py:150
+#, python-format
+msgid "Product"
+msgstr "Producto"
+
+#. module: bo_stock_card
+#: code:addons/bo_stock_card/models/simple_card.py:151
+#, python-format
+msgid "Init balance"
+msgstr "Saldo inicial"
+
+#. module: bo_stock_card
+#: code:addons/bo_stock_card/models/simple_card.py:152
+#, python-format
+msgid "In"
+msgstr "Entrada"
+
+#. module: bo_stock_card
+#: code:addons/bo_stock_card/models/simple_card.py:76
+#, python-format
+msgid "From:"
+msgstr "Desde:"
+
+#. module: bo_stock_card
+#: code:addons/bo_stock_card/models/simple_card.py:77
+#, python-format
+msgid "Since its creation"
+msgstr "Desde sus inicios"
+
+#. module: bo_stock_card
+#: code:addons/bo_stock_card/models/simple_card.py:81
+#, python-format
+msgid "To the present"
+msgstr "Hasta la actualidad"
+
+#. module: bo_stock_card
+#: code:addons/bo_stock_card/models/simple_card.py:81
+#, python-format
+msgid "To:"
+msgstr "Hasta:"
+
+#. module: bo_stock_card
+#: code:addons/bo_stock_card/models/simple_card.py:153
+#, python-format
+msgid "Out"
+msgstr "Salida"
+
+#. module: bo_stock_card
+#: code:addons/bo_stock_card/models/simple_card.py:154
+#, python-format
+msgid "Final balance"
+msgstr "Saldo Final"
+
+#. module: bo_stock_card
+#: code:addons/bo_stock_card/models/simple_card.py:180
+#, python-format
+msgid "Product Family (Category)"
+msgstr "Familia de productos (Categoría)"
+
+#. module: bo_stock_card
+#: code:addons/bo_stock_card/models/liquidation.py:169
+#, python-format
+msgid "Company:"
+msgstr "Empresa:"
+
+#. module: bo_stock_card
+#: code:addons/bo_stock_card/models/liquidation.py:169
+#, python-format
+msgid "Start date"
+msgstr "Fecha de inicio:"
+
+#. module: bo_stock_card
+#: code:addons/bo_stock_card/models/liquidation.py:169
+#, python-format
+msgid "End date"
+msgstr "Fecha fin:"
+
+#. module: bo_stock_card
+#: code:addons/bo_stock_card/models/liquidation.py:169
+#, python-format
+msgid "Invoice Date"
+msgstr "Fecha de la factura"
+
+#. module: bo_stock_card
+#: code:addons/bo_stock_card/models/liquidation.py:169
+#, python-format
+msgid "Move Location"
+msgstr "Ubicación"
+
+#. module: bo_stock_card
+#: code:addons/bo_stock_card/models/liquidation.py:169
+#, python-format
+msgid "Invoice User"
+msgstr "Usuario"
+
+#. module: bo_stock_card
+#: code:addons/bo_stock_card/models/liquidation.py:169
+#, python-format
+msgid "Move Product"
+msgstr "Producto"
+
+#. module: bo_stock_card
+#: code:addons/bo_stock_card/models/liquidation.py:169
+#, python-format
+msgid "Invoice Unit Price"
+msgstr "Precio unitario"
+
+#. module: bo_stock_card
+#: code:addons/bo_stock_card/models/liquidation.py:169
+#, python-format
+msgid "Invoice Quantity"
+msgstr "Cantidad"
+
+#. module: bo_stock_card
+#: code:addons/bo_stock_card/models/liquidation.py:169
+#, python-format
+msgid "Invoice UOM"
+msgstr "Unidad de medida"
+
+#. module: bo_stock_card
+#: code:addons/bo_stock_card/models/liquidation.py:169
+#, python-format
+msgid "Invoice Total"
+msgstr "Total"
+
+#. module: bo_stock_card
+#: code:addons/bo_stock_card/models/liquidation.py:169
+#, python-format
+msgid "Invoice Journal"
+msgstr "Comprobante"
+
+#. module: bo_stock_card
+#: code:addons/bo_stock_card/models/liquidation.py:169
+#, python-format
+msgid "Invoice #"
+msgstr "Nro."
+
+#. module: bo_stock_card
+#: code:addons/bo_stock_card/models/liquidation.py:169
+#, python-format
+msgid "Invoice Client"
+msgstr "Cliente"
+
+#. module: bo_stock_card
+#: code:addons/bo_stock_card/models/liquidation.py:169
+#, python-format
+msgid "Invoice State"
+msgstr "Estado"
+
+#. module: bo_stock_card
+#: code:addons/bo_stock_card/models/simple_card.py:369
+#, python-format
+msgid "Quantity"
+msgstr "Cantidad"
+
+#. module: bo_stock_card
+#: code:addons/bo_stock_card/models/simple_card.py:372
+#, python-format
+msgid "Sale."
+msgstr "Venta"
+
+#. module: bo_stock_card
+#: code:addons/bo_stock_card/models/card.py:169
+#, python-format
+msgid "Cost"
+msgstr "Costo"
+
+#. module: bo_stock_card
+#: code:addons/bo_stock_card/models/card.py:400
+#, python-format
+msgid "Cost total"
+msgstr "Costo total"
