@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Copyright (C) 2015 DevIntelle Consulting Service Pvt.Ltd (<http://www.devintellecs.com>).
+
+For Module Support : devintelle@gmail.com  or Skype : devintelle 
+ -->
+<odoo>
+	<template id="cust_statement_main_template">  
+		<t t-call="web.external_layout">
+			<div class="page">
+				<style>
+
+				.aging_table{
+					width:100%;
+					font-size:12px;
+				}
+				.aging_table td{
+					padding:5px;
+					border:1px solid black;
+				}
+				.my_table{
+				    width:100%;
+				}
+				.my_table th{
+				    padding:3px;
+				    border-bottom:1px solid black;
+				}
+				.my_table td{
+				    padding:3px;
+				}
+				</style>
+				<div class="row">
+				    <br/><br/>
+				    <div class="col-12 text-center">
+				        <h3>Statement Of Account </h3>
+				    </div>
+				</div>
+				<div class="row">
+				    <div style="font-size:13px" class="col-6" t-esc="o"
+                        t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}' />
+                    <div class="col-5 pull-right" style="font-size:13px;">
+                        <b>As of <span t-esc="o.overdue_date.strftime('%d-%m-%Y')"/></b><br/>
+                        <t t-if="o.property_payment_term_id">
+                            <b>Credit Term </b><span t-esc="o.property_payment_term_id.name"/>
+                        </t>
+                    </div>
+                </div>
+				
+				<t t-set="get_lines" t-value="get_lines(o)"/>
+				<div class="mt16 mb16"/>
+				<table class="my_table" style="font-size: 12px" t-if="get_lines">
+	            	<thead>
+	                    <tr>
+	                        <th style="width:20%">Description</th>
+	                        <t t-if="o.aging_by == 'inv_date'">
+	                            <th style="width:15%" class="text-center">Invoice Date</th>
+	                        </t>
+	                        <t t-if="o.aging_by == 'due_date'">
+	                            <th style="width:15%" class="text-center">Due Date</th>
+	                        </t>
+	                        <th style="width:20%" class="text-center">Invoice #</th>
+	                        <th style="width:15%" class="text-right">Invoice Amt</th>
+	                        <th style="width:15%" class="text-right">Payment Amt</th>
+	                        <th style="width:15%" class="text-right">Balance Due</th>
+	                    </tr>
+	                </thead>
+	                <tbody class="invoice_tbody">
+	                	<t t-set="l_debit" t-value="0" />
+                        <t t-set="l_credit" t-value="0" />
+                        <t t-set="l_total" t-value="0" />
+	                	<t t-foreach="get_lines" t-as="l" >
+	                		<tr>
+		                        <td>
+		                            <span t-esc="l.get('desc')"/>
+		                        </td>
+		                        <t t-if="o.aging_by == 'inv_date'">
+		                            <td class="text-center">
+		                            	<span t-esc="l.get('date').strftime('%d-%m-%Y')"/>
+		                            </td>
+		                        </t>
+		                        <t t-if="o.aging_by == 'due_date'">
+		                            <td class="text-center">
+		                            	<span t-esc="l.get('date_maturity').strftime('%d-%m-%Y')"/>
+		                            </td>
+		                        </t>
+		                        <td class="text-center">
+		                            <span t-esc="l.get('ref')"/>
+		                        </td>
+		                        <td class="text-right">
+		                            <t t-set="l_debit" t-value="l_debit + l.get('debit')" />
+		                            <span t-esc="set_amount(l.get('debit'))"/>
+		                        </td>
+		                        <td class="text-right">
+		                            <t t-set="l_credit" t-value="l_credit + l.get('credit')" />
+		                            <span t-esc="set_amount(l.get('credit'))"/>
+		                        </td>
+		                        <td class="text-right">
+	                                <t t-set="l_total" t-value="l_total+ l.get('total')" />
+	                                <span t-esc="set_amount(l.get('total'))"/>
+		                        </td>
+		                    </tr>
+	                	</t>
+	                	<tr style="background:#e0e0e0;">
+                            <td style="border-top:1px solid black" colspan="2"></td>
+                            <td style="border-top:1px solid black"><strong>Sub-Total :</strong></td>
+                            <td style="border-top:1px solid black" class="text-right"><span t-esc="set_amount(l_debit)"/></td>
+                            <td style="border-top:1px solid black" class="text-right"><span t-esc="set_amount(l_credit)"/></td>
+                            <td style="border-top:1px solid black" class="text-right"><span t-esc="set_amount(l_total)"/></td>
+                        </tr>
+	                </tbody>
+    			</table>
+				<div class="row" t-if="not get_lines">
+					<div class="col-12">
+						<p>
+		                    <strong>There is nothing due with this customer.</strong>
+		                </p>
+					</div>
+				</div>
+				<br/><br/>
+				<t t-if="get_lines">
+					<t t-set="aging" t-value="set_ageing(o)"/>
+					<table class="col-12 aging_table" t-if="aging">
+						<tr>
+							<td class="text-center">
+								<b>Current</b>
+							</td>
+							<t t-foreach="aging[1]" t-as="a_val" >
+								<td class="text-center">
+									<b><span t-esc="a_val"/></b>
+								</td>
+							</t>
+						</tr>
+						
+						<tr>
+							<td class="text-center">
+								<b><span t-esc="'%.2f'%(aging[0].get('not_due'))"/></b>
+							</td>
+							<t t-foreach="aging[1]" t-as="a_val" >
+								<td class="text-center">
+									<b><span t-esc="set_amount(aging[0].get(a_val))"/></b>
+								</td>
+							</t>
+						</tr>
+					</table>
+				</t>
+			</div>
+		</t>
+	</template>
+	
+	
+	<template id="cust_statement_template">
+		<t t-call="web.html_container">
+		    <t t-foreach="docs" t-as="o">
+		        <t t-call="dev_customer_account_statement.cust_statement_main_template" />
+		    </t>
+		</t>
+	</template>
+
+
+</odoo>
+
