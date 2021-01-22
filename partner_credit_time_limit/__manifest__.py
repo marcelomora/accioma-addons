@@ -21,6 +21,7 @@
         'sale_management',
     ],
     'data': [
+        'security/groups.xml',
         'views/partner_view.xml',
     ],
     'images': ['static/description/banner.png'],

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+  <record id="credit_time_limit_manager" model="res.groups">
+    <field name="name">Credit Time Limit Manager</field>
+    <field name="category_id" ref="base.module_category_accounting_and_finance"/>
+    <field name="implied_ids" eval="[(4, ref('sales_team.group_sale_salesman_all_leads'))]"></field>
+  </record>
+
+</odoo>

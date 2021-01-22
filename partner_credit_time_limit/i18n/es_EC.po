@@ -1,0 +1,57 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* partner_credit_time_limit
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-01-21 21:59+0000\n"
+"PO-Revision-Date: 2021-01-21 17:02-0500\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"Language: es_EC\n"
+"X-Generator: Poedit 2.4.2\n"
+
+#. module: partner_credit_time_limit
+#: model:ir.model.fields,help:partner_credit_time_limit.field_res_partner__over_credit_time_limit
+#: model:ir.model.fields,help:partner_credit_time_limit.field_res_users__over_credit_time_limit
+msgid "Allow all time."
+msgstr "Permitir siempre."
+
+#. module: partner_credit_time_limit
+#: model:ir.model.fields,field_description:partner_credit_time_limit.field_res_partner__over_credit_time_limit
+#: model:ir.model.fields,field_description:partner_credit_time_limit.field_res_users__over_credit_time_limit
+msgid "Allow to over credit time limit?"
+msgstr "¿Permitir sobrepasar el límite de crédito?"
+
+#. module: partner_credit_time_limit
+#: model:ir.model,name:partner_credit_time_limit.model_res_partner
+msgid "Contact"
+msgstr "Contacto"
+
+#. module: partner_credit_time_limit
+#: model:ir.model.fields,field_description:partner_credit_time_limit.field_res_partner__credit_time_limit
+#: model:ir.model.fields,field_description:partner_credit_time_limit.field_res_users__credit_time_limit
+msgid "Credit Time Limit"
+msgstr "Limita Crédito por Tiempo"
+
+#. module: partner_credit_time_limit
+#: code:addons/partner_credit_time_limit/models/sale.py:37
+#, python-format
+msgid "Over Customer Credit Time Limit !\n"
+msgstr "¡Ha sobrepasado el tiempo límite de crédito!\n"
+
+#. module: partner_credit_time_limit
+#: model:ir.model,name:partner_credit_time_limit.model_sale_order
+msgid "Sale Order"
+msgstr "Pedido de venta"
+
+#. module: partner_credit_time_limit
+#: model_terms:ir.ui.view,arch_db:partner_credit_time_limit.view_res_partner_inherit_for_credit_limit
+msgid "Time Limit(Credit Term)"
+msgstr "Tiempo Límite (Términos de crédito)"
