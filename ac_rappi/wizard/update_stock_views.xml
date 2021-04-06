@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+<record id="update_rappi_stock_view_form" model="ir.ui.view">
+    <field name="model">rappi.sync</field>
+    <field name="arch" type="xml">
+      <form string="Rappi">
+        <p>
+          Update stock values in Rappi
+        </p>
+        <footer>
+          <button string="Update" class="btn-primary" type="object" name="update_stock"/>
+          <button string="Cancel" class="btn-secondary" special="cancel" />
+        
+        </footer>
+      </form>
+    </field>
+</record>
+
+<act_window id="act_update_rappi_stock"
+    name="Update Rappi"
+    res_model="rappi.sync"
+    view_type="form"
+    view_mode="form"
+    target="new"
+    />
+
+    <menuitem action="act_update_rappi_stock" id="menu_rappi_stock_sync" parent="stock.menu_stock_warehouse_mgmt" sequence="600"/>
+
+</odoo>
