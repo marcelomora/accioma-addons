@@ -6,47 +6,80 @@
 import logging
 import json
 import requests as R
-from odoo import _, api, fields, models
 from datetime import datetime as DT
 from datetime import timedelta as TD
+from odoo import _, api, fields, models
+from odoo.tools.float_utils import float_round
 
 DB_DATETIME_FORMAT = '%Y-%m-%d %H:%M:%S'
 L = logging.getLogger(__name__)
 URL = 'https://services.grability.rappi.com/api/cpgs-integration/datasets'
-TOKEN_TEST = '6bc37261-7615-47c0-b6d8-91c23b747cea'
 
 class RappiSync(models.TransientModel):
     _name = 'rappi.sync'
     _description = 'Rappi Sync'
 
-    def update_stock(self):
-        dt = DT.now() - TD(minutes=1440)
-        L.info(dt.strftime(DB_DATETIME_FORMAT))
+    def _prepare_data(self, product):
+        quantities = product._compute_quantities_dict(None, None, None)
+        tax_ids = product.taxes_id
+        price = product.list_price
+        for tax in tax_ids:
+            if tax.amount_type == 'percent':
+                price += price * tax.amount / 100
+        qty_available = quantities[product.id]['qty_available']
+        L.info("Product Qty {} {}".format(quantities, qty_available))
+        data = {
+            'store_id': "UIO-001",
+            'trademark': "",
+            'description': product.name,
+            'is_available': product.active,
+            'sale_type': "U",
+            'id': product.default_code,
+            'name': product.default_code,
+            'price': float_round(price, 2),
+            'stock': qty_available,
+        }
 
-        moves = self.env['stock.move'].search([('date', '>', dt.strftime(DB_DATETIME_FORMAT))])
-        payload = {'records': []}
-        headers = {'content-type': 'application/json', 'Api_key': TOKEN_TEST}
+        return data
+
+    def _send_data(self, records):
+        """Send records to rappi api"""
+        if not records:
+            return
+
+        token = self.env['ir.config_parameter'].sudo().get_param("rappi.token")
+        payload = {'records': records}
+        headers = {'content-type': 'application/json', 'Api_key': token}
+        r = R.post(URL, data = json.dumps(payload), headers=headers)
+        L.info(r.text)
+        self.env['ir.config_parameter'].sudo().set_param("rappi.last.execution", DT.now().strftime(DB_DATETIME_FORMAT))
+
+    def _update_all(self):
+        products = self.env['product.product'].search(
+            [('active', '=', True), ('sale_ok', '=', True)]
+        )
+        records = []
+        for product in products:
+            records.append(self._prepare_data(product))
+
+        self._send_data(records)
+
+
+    def update_stock(self):
+
+        last_execution_time = self.env['ir.config_parameter'].sudo().get_param("rappi.last.execution")
+
+        if not last_execution_time:
+            self._update_all()
+            return
+        moves = self.env['stock.move'].search([('date', '>', last_execution_time)])
+        records = []
 
         for m in moves:
-            quantities = m.product_id._compute_quantities_dict(None, None, None)
-            qty_available = quantities[m.product_id.id]['qty_available']
-            L.info("Product Qty {} {}".format(quantities, qty_available))
-            data = {
-                'store_id': "1",
-                'trademark': "",
-                'description': m.product_id.name,
-                'is_available': m.product_id.active,
-                'sale_type': "U",
-                'id': m.product_id.default_code,
-                'name': m.product_id.default_code,
-                'price': m.product_id.list_price,
-                'stock': qty_available,
-            }
+            data = self._prepare_data(m.product_id)
+            records.append(data)
 
-            payload['records'].append(data)
-            L.info(payload)
-            r = R.post(URL, data = json.dumps(payload), headers=headers)
-            L.info(r.text)
+        self._send_data(records)
 
 
 

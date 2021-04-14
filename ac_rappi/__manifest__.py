@@ -1,7 +1,7 @@
 {
     "name": "Rappi Integration",
     "summary": "Rappi Integration for stock updating",
-    "version": "12.0.1.0.0",
+    "version": "12.0.1.1.0",
     "category": "Ecommerce Integration",
     "website": "www.accioma.com",
     "author": "Marcelo Mora (Accioma)",
