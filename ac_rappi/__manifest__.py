@@ -16,6 +16,7 @@
         "stock",
     ],
     "data": [
+        "views/product_views.xml",
         "wizard/update_stock_views.xml",
     ],
     "demo": [

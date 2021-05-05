@@ -27,7 +27,6 @@ class RappiSync(models.TransientModel):
             if tax.amount_type == 'percent':
                 price += price * tax.amount / 100
         qty_available = quantities[product.id]['qty_available']
-        L.info("Product Qty {} {}".format(quantities, qty_available))
         data = {
             'store_id': "UIO-001",
             'trademark': "",
@@ -36,6 +35,7 @@ class RappiSync(models.TransientModel):
             'sale_type': "U",
             'id': product.default_code,
             'name': product.default_code,
+            'discount': product.product_tmpl_id.rappi_discount,
             'price': float_round(price, 2),
             'stock': qty_available,
         }
