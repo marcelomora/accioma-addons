@@ -22,6 +22,7 @@ class SaleOrder(models.Model):
         movelines = moveline_obj.search(
             [('partner_id', '=', partner.id),
              ('account_id.user_type_id.name', '=', 'Por cobrar'),
+             ('debit', '>', 0),
              ('full_reconcile_id', '=', False)]
         )
         today_dt = datetime.strftime(datetime.now().date(), DF)
