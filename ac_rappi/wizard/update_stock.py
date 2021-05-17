@@ -19,10 +19,14 @@ class RappiSync(models.TransientModel):
     _name = 'rappi.sync'
     _description = 'Rappi Sync'
 
-    def _prepare_data(self, product):
+    send_all_products = fields.Boolean("Send all products")
+    return_msg = fields.Char("Returned Message")
+
+    def _prepare_data(self, product, price):
         quantities = product._compute_quantities_dict(None, None, None)
         tax_ids = product.taxes_id
-        price = product.list_price
+        price = price or product.list_price
+
         for tax in tax_ids:
             if tax.amount_type == 'percent':
                 price += price * tax.amount / 100
@@ -52,15 +56,22 @@ class RappiSync(models.TransientModel):
         headers = {'content-type': 'application/json', 'Api_key': token}
         r = R.post(URL, data = json.dumps(payload), headers=headers)
         L.info(r.text)
+        self.return_msg = r.text
         self.env['ir.config_parameter'].sudo().set_param("rappi.last.execution", DT.now().strftime(DB_DATETIME_FORMAT))
 
     def _update_all(self):
         products = self.env['product.product'].search(
-            [('active', '=', True), ('sale_ok', '=', True)]
+            [('active', '=', True),
+             ('sale_ok', '=', True),
+             ('rappi_published', '=', True)
+            ]
         )
+
+        prices = self._compute_product_price(products)
+
         records = []
         for product in products:
-            records.append(self._prepare_data(product))
+            records.append(self._prepare_data(product, prices[product.id]))
 
         self._send_data(records)
 
@@ -69,17 +80,31 @@ class RappiSync(models.TransientModel):
 
         last_execution_time = self.env['ir.config_parameter'].sudo().get_param("rappi.last.execution")
 
-        if not last_execution_time:
+        if not last_execution_time or self.send_all_products:
             self._update_all()
             return
         moves = self.env['stock.move'].search([('date', '>', last_execution_time)])
+        products = [m.product_id for m in moves if m.product_id.rappi_published]
+        prices = self._compute_product_price(products)
         records = []
 
-        for m in moves:
-            data = self._prepare_data(m.product_id)
+        for p in products:
+            data = self._prepare_data(p, prices[product.id])
             records.append(data)
 
         self._send_data(records)
+
+    def _compute_product_price(self, products):
+        pricelist_id = self.env['ir.config_parameter'].sudo().get_param("rappi.pricelist_id")
+        pricelist = self.env['product.pricelist'].browse(pricelist_id)
+
+        product_ids = products
+        quantities = [1.0] * len(product_ids)
+        partners = [False] * len(product_ids)
+
+        return pricelist.sudo().get_products_price(product_ids, quantities, partners)
+
+
 
 
 

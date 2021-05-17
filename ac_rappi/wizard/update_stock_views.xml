@@ -8,6 +8,12 @@
         <p>
           Update stock values in Rappi
         </p>
+        <group>
+          <field name="send_all_products"/>
+        </group>
+          <field name="return_msg"/>
+        <group>
+        </group>
         <footer>
           <button string="Update" class="btn-primary" type="object" name="update_stock"/>
           <button string="Cancel" class="btn-secondary" special="cancel" />

@@ -1,7 +1,7 @@
 {
     "name": "Rappi Integration",
     "summary": "Rappi Integration for stock updating",
-    "version": "12.0.1.1.0",
+    "version": "12.0.1.2.0",
     "category": "Ecommerce Integration",
     "website": "www.accioma.com",
     "author": "Marcelo Mora (Accioma)",
@@ -13,10 +13,11 @@
         "bin": [],
     },
     "depends": [
-        "stock",
+        "stock", "sale",
     ],
     "data": [
         "views/product_views.xml",
+        "views/res_config_settings_views.xml",
         "wizard/update_stock_views.xml",
     ],
     "demo": [
