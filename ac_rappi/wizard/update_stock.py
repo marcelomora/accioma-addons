@@ -10,6 +10,7 @@ from datetime import datetime as DT
 from datetime import timedelta as TD
 from odoo import _, api, fields, models
 from odoo.tools.float_utils import float_round
+from odoo.exceptions import UserError
 
 DB_DATETIME_FORMAT = '%Y-%m-%d %H:%M:%S'
 L = logging.getLogger(__name__)
@@ -25,12 +26,20 @@ class RappiSync(models.TransientModel):
     def _prepare_data(self, product, price):
         quantities = product._compute_quantities_dict(None, None, None)
         tax_ids = product.taxes_id
-        price = price or product.list_price
+
+        product_price = price
+        list_price = product.list_price
 
         for tax in tax_ids:
             if tax.amount_type == 'percent':
-                price += price * tax.amount / 100
+                product_price += product_price * tax.amount / 100
+
+        for tax in tax_ids:
+            if tax.amount_type == 'percent':
+                list_price += list_price * tax.amount / 100
+
         qty_available = quantities[product.id]['qty_available']
+
         data = {
             'store_id': "UIO-001",
             'trademark': "",
@@ -40,9 +49,22 @@ class RappiSync(models.TransientModel):
             'id': product.default_code,
             'name': product.default_code,
             'discount': product.product_tmpl_id.rappi_discount,
-            'price': float_round(price, 2),
+            'price': float_round(list_price, 2),
             'stock': qty_available,
+            'gtin': product.product_tmpl_id.barcode,
+            'brand': "",
+            'category_first_level': product.product_tmpl_id.categ_id.name,
+            'category_second_level': "",
+            'discount_price': float_round(product_price, 2),
+
         }
+
+        #  discount number false Porcentaje de descuento de producto
+        #  discount_start_at string false Rango de inicio del descuento de productos en
+        #  discount_end_at string false Descuento de producto en el rango final en
+        #  image_url string false
+
+        L.info(data)
 
         return data
 
@@ -97,6 +119,9 @@ class RappiSync(models.TransientModel):
     def _compute_product_price(self, products):
         pricelist_id = self.env['ir.config_parameter'].sudo().get_param("rappi.pricelist_id")
         pricelist = self.env['product.pricelist'].browse(pricelist_id)
+
+        if not pricelist:
+            raise UserError(_("Please configure Rappi Pricelist"))
 
         product_ids = products
         quantities = [1.0] * len(product_ids)
