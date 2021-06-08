@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<!--Payslip Inpu Form-->
+	<record id="form_payslip_input" model="ir.ui.view">
+		<field name="name">form.payslip.input</field>
+		<field name="model">hr.payslip.input</field>
+		<field name="arch" type="xml">
+		    <form string="Payslip Input Form">
+		    	<sheet>
+		    		<group>
+		    			<group>
+							<field name="payslip_id"/>
+                            <field name="contract_id"/>
+                            <field name="amount"/>
+		    			</group>
+		    			<group>
+                            <field name="name"/>
+		    				<field name="code"/>
+		    			</group>
+		    		</group>
+				</sheet>
+		    </form>
+		</field>
+	</record>
+
+	<!--Payslip Input Tree-->
+	<record id="tree_payslip_input" model="ir.ui.view">
+		<field name="name">tree.payslip.input</field>
+		<field name="model">hr.payslip.input</field>
+		<field name="arch" type="xml">
+		    <tree string="Payslip Input Tree">
+		       <field name="name"/>
+				<field name="code"/>
+				<field name="amount"/>
+				<field name="contract_id"/>
+		    </tree>
+		</field>
+	</record>
+
+	<!--Payslip Input Search-->
+	<record id="search_payslip_input" model="ir.ui.view">
+        <field name="name">Payslip Input - Search</field>
+        <field name="model">hr.payslip.input</field>
+        <field name="arch" type="xml">
+            <search string="Payslip Input Search">
+                <field name="name"/>
+                <field name="code"/>
+                <group expand="0" string="Group By" colspan="16">
+		         	<filter string="Payslip" name="payslip" context="{'group_by':'payslip_id'}"/>
+		         	<filter string="Contract" name="contract" context="{'group_by':'contract_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+	<!--Payslip Input Action-->
+	<record id="action_payslip_input" model="ir.actions.act_window">
+        <field name="name">Payslip Input</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hr.payslip.input</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!--Payslip Input Menu-->
+ 	<menuitem name ="Payslip Input" id='menu_payslip_input' parent="hr_payroll.menu_hr_payroll_configuration"
+			  action="action_payslip_input" sequence="14"/>
+</odoo>
